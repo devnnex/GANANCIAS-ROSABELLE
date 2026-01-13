@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>🔥Inventario Legendary | Santana Group🔥</title>
+
+  <!-- Responsive + iOS FIX -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+
+  <!-- Safari / iOS -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- PWA -->
+  <meta name="theme-color" content="#000000">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Legendary App">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  
+<!-- =========================
+  NAVBAR
+========================= -->
+<header class="navbar">
+  <div class="nav-left">
+    <img src="images/logo.png" alt="Santana Group" class="logo">
+  </div>
+
+  <nav class="nav-menu">
+    <a class="active" data-view="analisis">Análisis</a>
+  </nav>
+</header>
+
+<!-- =========================
+  CONTENIDO
+========================= -->
+<main class="container">
+
+  
+      <!-- =====================
+     VISTA ANALISIS
+====================== -->
+<section id="view-analisis" class="view">
+  
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h1>Análisis</h1>
+
+    <!-- Selector Mes / Año -->
+    <div class="analysis-filters sales-filters">
+  <select id="analysisMonth"></select>
+  <select id="analysisYear"></select>
+</div>
+  </div>
+
+  <!-- =========================
+   CARDS KPIS
+========================= -->
+  <div class="analysis-grid">
+
+    <div class="analysis-card primary">
+      <h4>Ventas del Mes</h4>
+      <span id="kpiVentas">$0</span>
+    </div>
+
+    <div class="analysis-card success">
+      <h4>Ganancia/Mes con Descuentos</h4>
+      <span id="kpiGanancia">$0</span>
+    </div>
+
+    <div class="analysis-card warning">
+      <h4>Total Descuentos</h4>
+      <span id="kpiDescuentos">$0</span>
+    </div>
+
+    <div class="analysis-card info">
+      <h4>Ventas sin no hubiesen Descuentos</h4>
+      <span id="kpiSinDescuento">$0</span>
+    </div>
+
+  </div>
+
+  <!-- GRID PRINCIPAL -->
+  <div class="analysis-layout">
+
+    <!-- =========================
+      GASTOS 
+     ========================= -->
+    <div class="analysis-card gastos-card">
+      <h3>Gastos del Mes</h3>
+
+      <form id="expenseForm" class="expense-form">
+        <input type="text" id="gastoNombre" placeholder="Nombre del gasto" required>
+        <input type="number" id="gastoValor" placeholder="Valor" required>
+        <button id="btnAgregarGasto">Agregar</button>
+      </form>
+
+      <ul id="expenseList" class="expense-list"></ul>
+
+      <div class="expense-total">
+        Ganancia Neta: <b id="ganancia_neta">$0</b>
+      </div>
+      <div class="expense-total">
+        Pagado en gastos: <b id="totalpagado">$0</b>
+      </div>
+    </div>
+<!-- =========================
+  GRÁFICOS
+========================= -->
+    <div class="analysis-card chart-card">
+      <h3>Ventas por Mes</h3>
+      <canvas id="salesByMonthChart"></canvas>
+    </div>
+
+    <div class="analysis-card chart-card">
+      <h3>Top 10 Productos Vendidos</h3>
+      <canvas id="topProductsChart"></canvas>
+    </div>
+  </div>
+  
+  <!-- =========================
+  ANÁLISIS POR MARCA
+  ========================= -->
+    <div class="analysis-card brand-analysis-card">
+  <h3>Análisis por Marca</h3>
+  <p style="font-size: 14px;"> la inversion disminuye cada que vendes una prenda, asi vas recuperando tu inversion hasta llegar a $0</p>
+  <table id="brandAnalysisTable">
+    <thead>
+      <tr>
+        <th>Marca</th>
+        <th>Productos</th>
+        <th>Vendidos</th>
+        <th>Inversión</th>
+        <th>Ventas</th>
+        <th>Ganancia</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JS llenará aquí -->
+    </tbody>
+  </table>
+</div>
+
+</section>
+</main>
+
+
+<!-- =========================
+  MODAL PRODUCTOS DE MARCA
+========================= -->
+<div class="modal hidden" id="brandModal">
+  <div class="modal-card">
+    <h2 id="brandModalTitle">Productos de Marca</h2>
+    <p style="font-size: 12px;">La columna ‘Total Inversión’ muestra cuánto de tu inversión inicial queda por recuperar. Cada venta reduce el valor invertido por prenda, lo que te costó. Hasta llegar a cero. Lo demás es ganancia</p>
+    <table id="brandProductsTable">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Stock</th>
+          <th>Costo Unit.</th>
+          <th>Total Inversión</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JS inyectará los productos aquí -->
+      </tbody>
+    </table>
+    <div class="modal-actions">
+      <button type="button" id="brandModalClose" class="ghost">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- =========================
+  FOOTER
+========================= -->
+<footer class="footer">
+  © 2025 Santana Group
+</footer>
+
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  (function(){
+    emailjs.init("R0ZBj0s4dj6Z24O5f");
+  })();
+</script>
+<!-- ✅ SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="analisis.js" defer></script>
+<script src="app.js" defer></script>
+
+<!-- GLOBAL LOADER -->
+<div id="globalLoader" class="loader hidden">
+  <div class="loader-card">
+    <div class="spinner"></div>
+    <span>Cargando información...</span>
+  </div>
+</div>
+
+</body>
+</html>
