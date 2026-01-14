@@ -1,6 +1,6 @@
 {
-  "name": "ROSABELLE APP",
-  "short_name": "ROSABELLE APP",
+  "name": "GANANCIAS ROSABELLE",
+  "short_name": "GANANCIAS ROSABELLE",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#000000",
@@ -10,3 +10,4 @@
     { "src": "./images/favicon.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
+
